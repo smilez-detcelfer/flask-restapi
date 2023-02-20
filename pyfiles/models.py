@@ -1,6 +1,7 @@
 from . import db
 from datetime import datetime
 from flask_login import UserMixin
+from flask_restful import fields
 import secrets
 
 
@@ -18,3 +19,12 @@ class User(db.Model, UserMixin):
 
     def __repr__(self) -> str:
         return 'User >> {self.username}'
+
+# serealisation for marshal_with decarator
+resource_fields_user = {
+    'id' : fields.Integer,
+    'username' : fields.String,
+    'password' : fields.String,
+    'email' : fields.String,
+    'balance' : fields.Integer
+}

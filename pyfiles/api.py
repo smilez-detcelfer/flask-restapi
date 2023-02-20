@@ -1,16 +1,10 @@
 from flask import Blueprint, jsonify, request
-from flask_restful import Api, Resource, reqparse
+from flask_restful import Api, Resource, reqparse, marshal_with
 from pyfiles import db
+from .models import User, resource_fields_user
 apipage = Blueprint('api', __name__)
 api = Api(apipage)
-from .models import User
 
-users = [{'username' : 'smilez', 'password' : '123456'},
-        {'username' : 'zelims', 'password' : '654321'}]
-
-# @apipage.route('/', methods = ['GET', 'POST'])
-# def first_api():
-#     return jsonify({'message': 'welcome'})
 
 args_userinfo = reqparse.RequestParser()
 args_userinfo.add_argument('username', type=str, required=True, help='username required')
@@ -18,15 +12,15 @@ args_userinfo.add_argument('username', type=str, required=True, help='username r
 class GetUserInfo(Resource):
     def get(self):
         return {'message': 'get request received'}
-
+    @marshal_with(resource_fields_user) # convert class instance to dictionary with resource_field template
     def post(self):
         args = args_userinfo.parse_args()
         user = User.query.filter_by(username = args['username']).first()
-        print(user.password)
-        if user:
-            return {'message': f'user password is {user.password}'}
-        print('func in user')
-        return {'message': 'zelims not found in args'}
+        print(user)
+        if user == None:
+            return {'message': 'user is not exist'}
+        else:
+            return user
 
 
 
