@@ -15,14 +15,24 @@ users = [{'username' : 'smilez', 'password' : '123456'},
 args_userinfo = reqparse.RequestParser()
 args_userinfo.add_argument('username', type=str, required=True, help='username required')
 
-
 class GetUserInfo(Resource):
-    def get(self, username):
-        print(username)
-        return (users[0])
+    def get(self):
+        print('username')
+        return {'message': 'get request'}
+
+    def post(self):
+        args = args_userinfo.parse_args()
+        print(args)
+        if args['username'] == 'zelims':
+            print("got zelims")
+            return {'message': 'zelims provided in args'}
+        print('func in user')
+        return {'message': 'zelims not found in args'}
 
 
-api.add_resource(GetUserInfo, '/getuserinfo/<string:username>')
+
+
+api.add_resource(GetUserInfo, '/getuserinfo')
 
 ########## json 1st try #############
 # userlist = [{'name': 'smilez', 'surname': 'detcelfer'},
