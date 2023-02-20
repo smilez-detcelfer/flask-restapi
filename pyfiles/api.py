@@ -17,15 +17,14 @@ args_userinfo.add_argument('username', type=str, required=True, help='username r
 
 class GetUserInfo(Resource):
     def get(self):
-        print('username')
-        return {'message': 'get request'}
+        return {'message': 'get request received'}
 
     def post(self):
         args = args_userinfo.parse_args()
-        print(args)
-        if args['username'] == 'zelims':
-            print("got zelims")
-            return {'message': 'zelims provided in args'}
+        user = User.query.filter_by(username = args['username']).first()
+        print(user.password)
+        if user:
+            return {'message': f'user password is {user.password}'}
         print('func in user')
         return {'message': 'zelims not found in args'}
 
