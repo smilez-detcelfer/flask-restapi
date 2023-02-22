@@ -1,44 +1,59 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, make_response
 from flask_restful import Api, Resource, reqparse
+from werkzeug.security import generate_password_hash, check_password_hash
+import jwt
+import uuid
+import datetime
+from functools import wraps
 from pyfiles import db
 apipage = Blueprint('api', __name__)
 api = Api(apipage)
 from .models import User
 
-users = [{'username' : 'smilez', 'password' : '123456'},
-        {'username' : 'zelims', 'password' : '654321'}]
 
-# @apipage.route('/', methods = ['GET', 'POST'])
-# def first_api():
-#     return jsonify({'message': 'welcome'})
-
+# get user info
 args_userinfo = reqparse.RequestParser()
 args_userinfo.add_argument('username', type=str, required=True, help='username required')
-
-class GetUserInfo(Resource):
+class UserInfo(Resource):
     def get(self):
         return {'message': 'get request received'}
 
     def post(self):
         args = args_userinfo.parse_args()
         user = User.query.filter_by(username = args['username']).first()
-        print(user.password)
         if user:
-            return {'message': f'user password is {user.password}'}
-        print('func in user')
-        return {'message': 'zelims not found in args'}
+            userdata = {
+                'username': f'{user.username}',
+                'user password': f'{user.password}'
+            }
+            return userdata
+        return {'message': 'user not found'}
 
+api.add_resource(UserInfo, '/getuserinfo')
+#-----------------
 
+# add new user
+args_user_add = reqparse.RequestParser()
+args_user_add.add_argument('username', type=str, required=True, help='username required')
+args_user_add.add_argument('password', type=str, required=True, help='password required')
+args_user_add.add_argument('email', type=str, required=True, help='email required')
+class UserAdd(Resource):
+    def post(self):
+        args = args_user_add.parse_args()
+        user = User.query.filter_by(username = args['username']).first()
+        if user:
+            return {'message': 'username has already taken'}
+        user = User.query.filter_by(email=args['email']).first()
+        if user:
+            return {'message': 'email has already taken'}
+        user = User(username=args['username'],
+                    password=generate_password_hash(args['password'], method='sha256'),
+                    email=args['email'],
+                    public_key=uuid.uuid4())
+        db.session.add(user)
+        db.session.commit()
+        return {'message': 'user created'}
 
+api.add_resource(UserAdd, '/useradd')
+#---------------
 
-api.add_resource(GetUserInfo, '/getuserinfo')
-
-########## json 1st try #############
-# userlist = [{'name': 'smilez', 'surname': 'detcelfer'},
-#             {'name': 'hui', 'surname': 'sobachi'},
-#             {'name': 'smilez', 'surname': 'thesecond'}]
-# @apipage.route('/<string:name>', methods=['GET'])
-# def checkuser(name):
-#     user_filtered = [user for user in userlist if user['name'] == name]
-#     return jsonify(user_filtered)
-########## json 1st try #############
