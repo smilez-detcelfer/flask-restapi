@@ -30,7 +30,7 @@ class UserInfo(Resource):
         return {'message': 'user not found'}
 
 api.add_resource(UserInfo, '/getuserinfo')
-#-----------------
+
 
 # add new user
 args_user_add = reqparse.RequestParser()
@@ -49,7 +49,7 @@ class UserAdd(Resource):
         user = User(username=args['username'],
                     password=generate_password_hash(args['password'], method='sha256'),
                     email=args['email'],
-                    public_key=uuid.uuid4())
+                    secret_key=uuid.uuid4())
         db.session.add(user)
         db.session.commit()
         return {'message': 'user created'}
