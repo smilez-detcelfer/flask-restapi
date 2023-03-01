@@ -9,8 +9,8 @@ BASE = 'http://127.0.0.1:5000/'
 # print(response.json())
 
 headers = {'accept': 'application/json'}
-payload = {'username': 'username1',
-           'email': 'email@email.xxx',
+payload = {'username': 'usdederqdname1',
+           'email': 'email@deeddmaqil.xxx',
            'password': '1234567'}
 
 response = requests.post(BASE + 'api/generate_encrypted_secret', json=payload)

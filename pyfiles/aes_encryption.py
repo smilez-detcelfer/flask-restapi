@@ -2,6 +2,10 @@ import binascii
 from Crypto.Cipher import AES
 from os import getenv as env
 
+from dotenv import load_dotenv, find_dotenv
+#load variables from dotenv to variable environment
+load_dotenv(find_dotenv())
+
 encryption_key = str.encode(env('ENCRYPTION_KEY'))
 encryption_nonce = str.encode(env('ENCRYPTION_NONCE'))
 
