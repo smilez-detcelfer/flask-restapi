@@ -6,15 +6,17 @@ from pyfiles import db
 apipage = Blueprint('api', __name__)
 api = Api(apipage)
 from pyfiles.models import User
+from pyfiles.update_user import update_user_login
+#create user with encrypted api key
+args_add_user = reqparse.RequestParser()
+args_add_user.add_argument('username', type=str, required=True, help='username required')
+args_add_user.add_argument('password', type=str, required=True, help='password required')
+args_add_user.add_argument('email', type=str, required=True, help='email required')
 
-#generate encrypted api key
-args_generate_encrypted_secret = reqparse.RequestParser()
-args_generate_encrypted_secret.add_argument('username', type=str, required=True, help='username required')
-args_generate_encrypted_secret.add_argument('password', type=str, required=True, help='password required')
-args_generate_encrypted_secret.add_argument('email', type=str, required=True, help='email required')
-class generate_encrypted_secret(Resource):
+
+class AddUser(Resource):
     def post(self):
-        args = args_generate_encrypted_secret.parse_args()
+        args = args_add_user.parse_args()
 
         #conditions for uniq user and email
         user = User.query.filter_by(username = args['username']).first()
@@ -23,7 +25,7 @@ class generate_encrypted_secret(Resource):
         user = User.query.filter_by(email=args['email']).first()
         if user:
             return {'message': 'email has already taken'}
-        #------------------------------------------------
+
         gen_secret_key = secrets.token_urlsafe(40) # secret key generation (as before_
         user = User(value=gen_secret_key,  # encrypted secret key in column 'enc_secret_key' (check in models)
                     username=args['username'],
@@ -33,7 +35,39 @@ class generate_encrypted_secret(Resource):
                     )
         db.session.add(user)
         db.session.commit()
-        #user = User.query.filter_by(value = gen_secret_key).first()
         return {'message': 'user created', 'user secret token (decrypted)': f'{user.value}'}
 
-api.add_resource(generate_encrypted_secret, '/generate_encrypted_secret')
+api.add_resource(AddUser, '/generate_encrypted_secret')
+
+args_get_user_info = reqparse.RequestParser()
+args_get_user_info.add_argument('secret_key', type=str, required=True, help='secret key required')
+
+class GetUserInfo(Resource):
+    def post(self):
+        args = args_get_user_info.parse_args()
+        user = User.query.filter_by(value=args['secret_key']).first()
+        if user:
+            update_user_login(user)
+            return {'username': f'{user.username}', 'secret key': f'{user.value}'}
+        else:
+            return {'message': 'incorrect secret key'}
+
+
+api.add_resource(GetUserInfo, '/getuserinfo')
+
+# check user balance
+args_check_user_balance = reqparse.RequestParser()
+args_check_user_balance.add_argument('secret_key', type=str, required=True, help='secret key required')
+
+class CheckUserBalance(Resource):
+    def post(self):
+        args = args_check_user_balance.parse_args()
+        user = User.query.filter_by(value=args['secret_key']).first()
+        if user:
+            update_user_login(user)
+            return {'user balance': f'{user.balance}'}
+        else:
+            return {'message': 'incorrect secret key'}
+
+
+api.add_resource(CheckUserBalance, '/checkuserbalance')

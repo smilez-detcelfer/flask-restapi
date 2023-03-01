@@ -11,7 +11,7 @@ class User(db.Model):
     balance = db.Column(db.Integer, default=0)
     secret_key = db.Column(db.Text(), nullable=False)
     enc_secret_key = db.Column(db.Text(), unique=True, nullable=False)
-
+    last_login = db.Column(db.DateTime())
 
     @hybrid_property
     def value(self):
