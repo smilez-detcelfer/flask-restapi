@@ -1,8 +1,5 @@
 import binascii
-import uuid
-
 from Crypto.Cipher import AES
-
 from sqlalchemy import Column
 from sqlalchemy import create_engine
 from sqlalchemy import Integer

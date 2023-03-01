@@ -1,10 +1,8 @@
 from flask import Blueprint, jsonify, request, make_response
 from flask_restful import Api, Resource, reqparse
 from werkzeug.security import generate_password_hash, check_password_hash
-import jwt
+import secrets
 import uuid
-import datetime
-from functools import wraps
 from pyfiles import db
 apipage = Blueprint('api', __name__)
 api = Api(apipage)
@@ -55,8 +53,8 @@ class UserAdd(Resource):
         return {'message': 'user created'}
 
 api.add_resource(UserAdd, '/useradd')
-#---------------
 
+#generate encrypted api key
 args_generate_encrypted_secret = reqparse.RequestParser()
 args_generate_encrypted_secret.add_argument('username', type=str, required=True, help='username required')
 args_generate_encrypted_secret.add_argument('password', type=str, required=True, help='password required')
@@ -70,15 +68,18 @@ class generate_encrypted_secret(Resource):
         user = User.query.filter_by(email=args['email']).first()
         if user:
             return {'message': 'email has already taken'}
-        user_secret_key = '9V5JDGiFK3kJAL_AcFjcnIcxoczsHNvyD9SZufV1grjqXo3FJFuxVg'
-        user = User(value=user_secret_key,
+        secret_key = secrets.token_urlsafe(40)
+        user = User(value=secret_key,
                     username=args['username'],
                     password=generate_password_hash(args['password'], method='sha256'),
                     email=args['email'],
-                    secret_key=user_secret_key
+                    secret_key=secret_key
                     )
         db.session.add(user)
         db.session.commit()
+        decrypted_key = user.value
+        user = User.query.filter_by(value = decrypted_key).first()
+        print(user.value)
         return {'message': 'user created'}
 
 api.add_resource(generate_encrypted_secret, '/generate_encrypted_secret')

@@ -1,14 +1,16 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-
-
+from os import getenv as env
+from dotenv import load_dotenv, find_dotenv
+#load variables from dotenv to variable environment
+load_dotenv(find_dotenv())
 app = Flask(__name__, instance_relative_config=True)
 db = SQLAlchemy()
 
 def create_app():
 
-    app.config['SECRET_KEY'] = 'asdflwefDKLFJSWFSDFLWiov'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:OneTwoPost123@192.168.1.11:5432/supersms-test'
+    app.config['SECRET_KEY'] = env('FLASK_SECRET_KEY')
+    app.config['SQLALCHEMY_DATABASE_URI'] = env('SQLALCHEMY_DATABASE_URI')
     db.init_app(app)
 
     # from .views import views
