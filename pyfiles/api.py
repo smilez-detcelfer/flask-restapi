@@ -1,8 +1,7 @@
-from flask import Blueprint, jsonify, request, make_response
+from flask import Blueprint
 from flask_restful import Api, Resource, reqparse
 from werkzeug.security import generate_password_hash, check_password_hash
 import secrets
-import uuid
 from pyfiles import db
 apipage = Blueprint('api', __name__)
 api = Api(apipage)
@@ -24,8 +23,8 @@ class generate_encrypted_secret(Resource):
         user = User.query.filter_by(email=args['email']).first()
         if user:
             return {'message': 'email has already taken'}
-
-        gen_secret_key = secrets.token_urlsafe(40)
+        #------------------------------------------------
+        gen_secret_key = secrets.token_urlsafe(40) # secret key generation (as before_
         user = User(value=gen_secret_key,  # encrypted secret key in column 'enc_secret_key' (check in models)
                     username=args['username'],
                     password=generate_password_hash(args['password'], method='sha256'),
@@ -34,10 +33,7 @@ class generate_encrypted_secret(Resource):
                     )
         db.session.add(user)
         db.session.commit()
-
-        #show decrypted secret key
-        user = User.query.filter_by(value = gen_secret_key).first()
-        print(f'decrypted secret: {user.value}')
-        return {'message': 'user created'}
+        #user = User.query.filter_by(value = gen_secret_key).first()
+        return {'message': 'user created', 'user secret token (decrypted)': f'{user.value}'}
 
 api.add_resource(generate_encrypted_secret, '/generate_encrypted_secret')
