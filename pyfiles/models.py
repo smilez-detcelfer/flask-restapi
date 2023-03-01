@@ -12,6 +12,7 @@ class User(db.Model):
     secret_key = db.Column(db.Text(), nullable=False)
     enc_secret_key = db.Column(db.Text(), unique=True, nullable=False)
 
+
     @hybrid_property
     def value(self):
         return aes_decrypt(self.enc_secret_key)

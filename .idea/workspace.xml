@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5b94a8a4-d294-4f2d-848c-c3ddcb05f593" name="Changes" comment="still working">
+    <list default="true" id="5b94a8a4-d294-4f2d-848c-c3ddcb05f593" name="Changes" comment="secret key encryption done and workable">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyfiles/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyfiles/api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyfiles/encryption.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyfiles/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyfiles/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/request_sender.py" beforeDir="false" afterPath="$PROJECT_DIR$/request_sender.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -207,7 +203,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677674754443</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="secret key encryption done and workable">
+      <created>1677675909511</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1677675909511</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -226,6 +229,7 @@
     <MESSAGE value="added decorators to model" />
     <MESSAGE value="add dotenv. saving before changing" />
     <MESSAGE value="still working" />
-    <option name="LAST_COMMIT_MESSAGE" value="still working" />
+    <MESSAGE value="secret key encryption done and workable" />
+    <option name="LAST_COMMIT_MESSAGE" value="secret key encryption done and workable" />
   </component>
 </project>
