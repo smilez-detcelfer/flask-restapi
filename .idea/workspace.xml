@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5b94a8a4-d294-4f2d-848c-c3ddcb05f593" name="Changes" comment="db initalisation migrated to models.py&#10;&#10;deletion user function ready without shedule">
+    <list default="true" id="5b94a8a4-d294-4f2d-848c-c3ddcb05f593" name="Changes" comment="schedule works on main.py">
+      <change afterPath="$PROJECT_DIR$/src/utils/schedule_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/scheduler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/scheduled_tasks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/scheduled_tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/scheduled_tasks.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -244,7 +245,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678126255321</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="schedule works on main.py">
+      <created>1678129226646</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1678129226646</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -268,6 +276,7 @@
     <MESSAGE value="changed time fromat" />
     <MESSAGE value="dir structure refactor" />
     <MESSAGE value="db initalisation migrated to models.py&#10;&#10;deletion user function ready without shedule" />
-    <option name="LAST_COMMIT_MESSAGE" value="db initalisation migrated to models.py&#10;&#10;deletion user function ready without shedule" />
+    <MESSAGE value="schedule works on main.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="schedule works on main.py" />
   </component>
 </project>
