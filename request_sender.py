@@ -9,7 +9,7 @@ BASE = 'http://127.0.0.1:5000/'
 # print(response.json())
 
 headers = {'accept': 'application/json'}
-payload = {'secret_key': 'R-N8vwKapMWyRGtr39uSLB97rizDdXOfI8Ube_OCa9cykJeH6G6xJg'
+payload = {'secret_key': 'jG10xrcBjaqfBWt-ZXC9yVmtooAQQgYzOgGF6yndDAsUVdJtm_14TQ'
            #'email': 'emailxxx@domain.xxx',
            #'password': '1234567'
            }

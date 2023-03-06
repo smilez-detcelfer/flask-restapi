@@ -62,7 +62,7 @@ args_check_user_balance.add_argument('secret_key', type=str, required=True, help
 class CheckUserBalance(Resource):
     def post(self):
         args = args_check_user_balance.parse_args()
-        user = User.query.filter_by(value=args['secret_key']).first()
+        user = db.session.query(User).filter_by(secret_key=args['secret_key']).with_for_update().first()
         if user:
             update_user_login(user)
             return {'user balance': f'{user.balance}'}

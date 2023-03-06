@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5b94a8a4-d294-4f2d-848c-c3ddcb05f593" name="Changes" comment="secret key encryption done and workable">
-      <change afterPath="$PROJECT_DIR$/pyfiles/update_user.py" afterDir="false" />
+    <list default="true" id="5b94a8a4-d294-4f2d-848c-c3ddcb05f593" name="Changes" comment="added function for last_login update via api">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pyfiles/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyfiles/api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyfiles/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyfiles/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyfiles/update_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyfiles/update_user.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/request_sender.py" beforeDir="false" afterPath="$PROJECT_DIR$/request_sender.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -156,8 +155,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.request_sender" />
-        <item itemvalue="Python.update_user" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.update_user" />
         <item itemvalue="Python.encryption" />
         <item itemvalue="Python.aes_encryption (1)" />
       </list>
@@ -214,7 +213,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677675909511</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="added function for last_login update via api">
+      <created>1677700948382</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1677700948382</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -234,6 +240,7 @@
     <MESSAGE value="add dotenv. saving before changing" />
     <MESSAGE value="still working" />
     <MESSAGE value="secret key encryption done and workable" />
-    <option name="LAST_COMMIT_MESSAGE" value="secret key encryption done and workable" />
+    <MESSAGE value="added function for last_login update via api" />
+    <option name="LAST_COMMIT_MESSAGE" value="added function for last_login update via api" />
   </component>
 </project>
