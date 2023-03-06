@@ -14,5 +14,5 @@ payload = {'secret_key': 'jG10xrcBjaqfBWt-ZXC9yVmtooAQQgYzOgGF6yndDAsUVdJtm_14TQ
            #'password': '1234567'
            }
 
-response = requests.post(BASE + 'api/checkuserbalance', json=payload)
+response = requests.post(BASE + 'api/getuserinfo', json=payload)
 print(response.json())

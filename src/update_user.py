@@ -1,5 +1,5 @@
 from datetime import datetime
-from pyfiles import db
+from src import db
 
 
 def update_user_login(user):
