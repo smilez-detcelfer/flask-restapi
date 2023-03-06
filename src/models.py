@@ -1,7 +1,9 @@
-from . import db
+from flask_sqlalchemy import SQLAlchemy
 from src.utils.aes_encryption import aes_encrypt, aes_decrypt
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.ext.hybrid import Comparator
+
+db = SQLAlchemy()
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -42,3 +44,7 @@ class User(db.Model):
 
     def __repr__(self) -> str:
         return 'User >> {self.username}'
+
+class Orders(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

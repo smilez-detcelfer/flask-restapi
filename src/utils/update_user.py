@@ -1,5 +1,5 @@
 from datetime import datetime
-from src import db
+from src.models import db
 
 
 def update_user_login(user):

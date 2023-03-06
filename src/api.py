@@ -1,12 +1,16 @@
 from flask import Blueprint
 from flask_restful import Api, Resource, reqparse
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
 import secrets
-from src import db
+from src.models import db
+
 apipage = Blueprint('api', __name__)
 api = Api(apipage)
+
 from src.models import User
-from src.update_user import update_user_login
+from src.utils.update_user import update_user_login
+#from src.utils.scheduler import delete_old_users
+
 #create user with encrypted api key
 args_add_user = reqparse.RequestParser()
 args_add_user.add_argument('username', type=str, required=True, help='username required')
@@ -46,6 +50,7 @@ class GetUserInfo(Resource):
     def post(self):
         args = args_get_user_info.parse_args()
         user = User.query.filter_by(value=args['secret_key']).first()
+        delete_old_users()
         if user:
             update_user_login(user)
             return {'username': f'{user.username}', 'secret key': f'{user.value}'}
