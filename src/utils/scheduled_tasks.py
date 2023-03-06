@@ -22,7 +22,8 @@ def delete_old_users():
         file.writelines(line + '\n' for line in user_log_list)
 
 
+# from src.utils.scheduler import delete_old_users
 # # scheduled jobs:
-#     scheduler = BackgroundScheduler(daemon=True)
-#     scheduler.add_job(delete_old_users, 'interval', minutes=1)
-#     scheduler.start()
+# scheduler = BackgroundScheduler(daemon=True)
+# scheduler.add_job(delete_old_users, 'interval', seconds=20)
+# scheduler.start()

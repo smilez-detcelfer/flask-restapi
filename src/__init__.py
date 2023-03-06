@@ -1,7 +1,7 @@
 from flask import Flask
 from os import getenv as env
-from dotenv import load_dotenv, find_dotenv
 from src.models import db
+from dotenv import load_dotenv, find_dotenv
 
 
 #load variables from dotenv to variable environment
@@ -17,6 +17,5 @@ def create_app():
 
     from src.api import apipage
     app.register_blueprint(apipage, url_prefix='/api')
-
 
     return app

@@ -9,7 +9,7 @@ api = Api(apipage)
 
 from src.models import User
 from src.utils.update_user import update_user_login
-#from src.utils.scheduler import delete_old_users
+from src.utils.scheduled_tasks import delete_old_users
 
 #create user with encrypted api key
 args_add_user = reqparse.RequestParser()
