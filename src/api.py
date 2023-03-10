@@ -49,10 +49,10 @@ args_get_user_info.add_argument('secret_key', type=str, required=True, help='sec
 class GetUserInfo(Resource):
     def post(self):
         args = args_get_user_info.parse_args()
-        user = User.query.filter_by(value=args['secret_key']).first()
+        user = User.query.filter_by(enc_sec_key=args['secret_key']).first()
         if user:
             update_user_login(user)
-            return {'username': f'{user.username}', 'secret key': f'{user.value}'}
+            return {'username': f'{user.username}', 'secret key': f'{user.enc_sec_key}'}
         else:
             return {'message': 'incorrect secret key'}
 

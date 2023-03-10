@@ -16,11 +16,11 @@ class User(db.Model):
     last_login = db.Column(db.DateTime())
 
     @hybrid_property
-    def value(self):
+    def enc_sec_key(self):
         return aes_decrypt(self.enc_secret_key)
 
-    @value.setter
-    def value(self, value):
+    @enc_sec_key.setter
+    def enc_sec_key(self, value):
         self.enc_secret_key = aes_encrypt(value)
 
     class encrypt_comparator(Comparator):
@@ -30,8 +30,8 @@ class User(db.Model):
                 **kw
             )
 
-    @value.comparator
-    def value(cls):
+    @enc_sec_key.comparator
+    def enc_sec_key(cls):
         return cls.encrypt_comparator(
                     cls.enc_secret_key
                 )
