@@ -30,18 +30,18 @@ class AddUser(Resource):
         if user:
             return {'message': 'email has already taken'}
 
-        gen_secret_key = secrets.token_urlsafe(40) # secret key generation (as before_
-        user = User(value=gen_secret_key,  # encrypted secret key in column 'enc_secret_key' (check in models)
-                    username=args['username'],
+        gen_secret_key = secrets.token_urlsafe(40) # secret key generation
+        user = User(username=args['username'],
                     password=generate_password_hash(args['password'], method='sha256'),
                     email=args['email'],
-                    secret_key=gen_secret_key  # as before (unencrypted)
+                    secret_key=gen_secret_key,  # as before (unencrypted)
+                    enc_sec_key = gen_secret_key # encrypted secret key in column 'enc_secret_key'
                     )
         db.session.add(user)
         db.session.commit()
-        return {'message': 'user created', 'user secret token (decrypted)': f'{user.value}'}
+        return {'message': 'user created', 'user secret token (decrypted)': f'{user.enc_sec_key}'}
 
-api.add_resource(AddUser, '/generate_encrypted_secret')
+api.add_resource(AddUser, '/adduser')
 
 args_get_user_info = reqparse.RequestParser()
 args_get_user_info.add_argument('secret_key', type=str, required=True, help='secret key required')
