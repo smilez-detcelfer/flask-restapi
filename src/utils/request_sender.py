@@ -5,8 +5,8 @@ BASE = 'http://127.0.0.1:5000/'
 
 
 headers = {'accept': 'application/json'}
-payload = {'username': 'smile123',
-           'email': 'email111xxx@domain.xxx',
+payload = {'username': 'smile2234',
+           'email': 'email23@domain.xxx',
            'password': '1234567'
            }
 response = requests.post(BASE + 'api/adduser', json=payload)

@@ -2,6 +2,7 @@ from flask import Blueprint
 from flask_restful import Api, Resource, reqparse
 from werkzeug.security import generate_password_hash
 import secrets
+from Crypto.Random import get_random_bytes
 from src.models import db
 
 apipage = Blueprint('api', __name__)
@@ -31,15 +32,19 @@ class AddUser(Resource):
             return {'message': 'email has already taken'}
 
         gen_secret_key = secrets.token_urlsafe(40) # secret key generation
+        encryption_nonce = get_random_bytes(12)
         user = User(username=args['username'],
                     password=generate_password_hash(args['password'], method='sha256'),
                     email=args['email'],
                     secret_key=gen_secret_key,  # as before (unencrypted)
-                    enc_sec_key = gen_secret_key # encrypted secret key in column 'enc_secret_key'
+                    enc_sec_key = gen_secret_key,  # encrypted secret key in column 'enc_secret_key'
+                    enc_secret_key_nonce = encryption_nonce
                     )
         db.session.add(user)
         db.session.commit()
-        return {'message': 'user created', 'user secret token (decrypted)': f'{user.enc_sec_key}'}
+        return {'message': 'user created',
+                'user secret token (decrypted)': f'{user.enc_sec_key}',
+                'encryption nonce': f'{user.enc_secret_key_nonce}'}
 
 api.add_resource(AddUser, '/adduser')
 

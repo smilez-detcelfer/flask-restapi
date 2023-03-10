@@ -1,5 +1,7 @@
 import binascii
+
 from Crypto.Cipher import AES
+from Crypto.Random import get_random_bytes
 from os import getenv as env
 
 from dotenv import load_dotenv, find_dotenv
@@ -7,7 +9,7 @@ from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
 encryption_key = str.encode(env('ENCRYPTION_KEY'))
-encryption_nonce = str.encode(env('ENCRYPTION_NONCE'))
+encryption_nonce = get_random_bytes(12)
 
 
 def aes_encrypt(data):
@@ -20,4 +22,3 @@ def aes_encrypt(data):
 def aes_decrypt(data):
     cipher = AES.new(encryption_key, AES.MODE_EAX, nonce=encryption_nonce)
     return cipher.decrypt(binascii.unhexlify(data)).decode("utf-8").rstrip()
-
